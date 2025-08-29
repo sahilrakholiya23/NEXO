@@ -1,0 +1,521 @@
+/* PhantomEye Dark Cybersecurity Theme */
+
+:root {
+    --primary-color: #00ff41;
+    --secondary-color: #0d7377;
+    --accent-color: #ff0040;
+    --danger-color: #ff073a;
+    --success-color: #00ff41;
+    --warning-color: #ffaa00;
+    --dark-bg: #0a0a0a;
+    --darker-bg: #000000;
+    --card-bg: #111111;
+    --border-color: #333333;
+    --text-primary: #00ff41;
+    --text-secondary: #ffffff;
+    --text-muted: #888888;
+    --glow-color: #00ff41;
+    --red-glow: #ff073a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+    background: var(--dark-bg);
+    color: var(--text-secondary);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 64, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #000000 100%);
+    background-attachment: fixed;
+}
+
+/* Navigation Bar */
+.navbar {
+    background: linear-gradient(135deg, var(--darker-bg), var(--card-bg));
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-shadow: 0 0 10px var(--glow-color);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    text-shadow: 0 0 20px var(--glow-color);
+    transform: scale(1.05);
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-secondary) !important;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 255, 65, 0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(0, 255, 65, 0.2);
+    border-color: var(--primary-color);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--darker-bg), var(--card-bg));
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 15px 15px 0 0 !important;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+.card-body {
+    background: var(--card-bg);
+    color: var(--text-secondary);
+}
+
+/* Buttons */
+.btn-primary, .btn-gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: 1px solid var(--primary-color);
+    border-radius: 25px;
+    color: var(--darker-bg);
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.btn-primary:hover, .btn-gradient:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.5);
+    color: var(--darker-bg);
+    border-color: var(--primary-color);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-color), #cc0033);
+    border: 1px solid var(--danger-color);
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 7, 58, 0.3);
+}
+
+.btn-danger:hover {
+    box-shadow: 0 5px 20px rgba(255, 7, 58, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Form Controls */
+.form-control, .form-control-rounded {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    color: var(--text-secondary);
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.form-control:focus, .form-control-rounded:focus {
+    background: var(--card-bg);
+    border-color: var(--primary-color);
+    color: var(--text-secondary);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.form-label {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+/* Stats Cards */
+.stats-card {
+    text-align: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    animation: scan 3s infinite;
+}
+
+@keyframes scan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.stats-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.3);
+}
+
+.stats-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-shadow: 0 0 15px var(--glow-color);
+    font-family: 'Courier New', monospace;
+}
+
+.stats-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Attack Rows */
+.attack-row {
+    border-left: 4px solid var(--danger-color);
+    background: linear-gradient(90deg, rgba(255, 7, 58, 0.1), transparent);
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.attack-row:hover {
+    background: linear-gradient(90deg, rgba(255, 7, 58, 0.2), transparent);
+    transform: translateX(5px);
+    box-shadow: 0 0 15px rgba(255, 7, 58, 0.3);
+}
+
+/* Table Styling */
+.table {
+    color: var(--text-secondary);
+    background: transparent;
+}
+
+.table th {
+    color: var(--primary-color);
+    border-color: var(--border-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.table td {
+    border-color: var(--border-color);
+    vertical-align: middle;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+/* Code Styling */
+code {
+    background: var(--darker-bg);
+    color: var(--primary-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+/* Badges */
+.badge {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.badge.bg-warning {
+    background: var(--warning-color) !important;
+    color: var(--darker-bg);
+}
+
+.badge.bg-danger {
+    background: var(--danger-color) !important;
+    color: white;
+}
+
+.badge.bg-success {
+    background: var(--success-color) !important;
+    color: var(--darker-bg);
+}
+
+/* Alerts */
+.alert {
+    border-radius: 10px;
+    border: 1px solid;
+    font-family: 'Courier New', monospace;
+}
+
+.alert-success {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+
+.alert-danger {
+    background: rgba(255, 7, 58, 0.1);
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.alert-warning {
+    background: rgba(255, 170, 0, 0.1);
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+}
+
+/* Live Indicator */
+.live-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--success-color);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+@keyframes pulse {
+    0% { 
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 10px var(--glow-color);
+    }
+    50% { 
+        opacity: 0.5;
+        transform: scale(1.2);
+        box-shadow: 0 0 20px var(--glow-color);
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 10px var(--glow-color);
+    }
+}
+
+/* Login/Honeypot Cards */
+.login-card, .honeypot-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(0, 255, 65, 0.2);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    backdrop-filter: blur(15px);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-card::before, .honeypot-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
+    animation: borderGlow 3s infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.logo h1 {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px var(--glow-color);
+    font-family: 'Courier New', monospace;
+}
+
+.logo p {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--darker-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+/* Text Styling */
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Loading Animation */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.3), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .stats-number {
+        font-size: 2rem;
+    }
+    
+    .honeypot-card,
+    .login-card {
+        margin: 20px;
+        padding: 30px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .card {
+        margin: 10px;
+    }
+}
+
+/* Matrix Rain Effect (Optional) */
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+/* Glitch Effect for Critical Alerts */
+.glitch {
+    animation: glitch 0.3s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* Terminal-like styling for specific elements */
+.terminal {
+    background: var(--darker-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+.terminal::before {
+    content: '> ';
+    color: var(--accent-color);
+}
+
+/* Cyber grid background */
+.cyber-grid {
+    background-image: 
+        linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+

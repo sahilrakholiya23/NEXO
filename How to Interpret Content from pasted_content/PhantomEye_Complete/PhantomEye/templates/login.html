@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhantomEye - Secure Access</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: var(--dark-bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 0, 64, 0.1) 0%, transparent 50%);
+            animation: backgroundShift 10s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.1) rotate(5deg); }
+        }
+        
+        .login-container {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .cyber-border {
+            position: relative;
+            padding: 3px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--primary-color));
+            border-radius: 18px;
+            animation: borderRotate 4s linear infinite;
+        }
+        
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .login-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), transparent, var(--accent-color), transparent, var(--primary-color));
+            z-index: -1;
+            border-radius: 18px;
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            animation: scanLine 2s ease-in-out infinite;
+        }
+        
+        @keyframes scanLine {
+            0%, 100% { opacity: 0; width: 0; }
+            50% { opacity: 1; width: 100px; }
+        }
+        
+        .system-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+        
+        .form-floating {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .form-floating .form-control {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 20px 15px 10px 15px;
+            height: auto;
+        }
+        
+        .form-floating .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+        
+        .form-floating label {
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 25px;
+            color: var(--darker-bg);
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .login-btn:hover::before {
+            left: 100%;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.4);
+        }
+        
+        .security-notice {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 0, 64, 0.05);
+            border: 1px solid rgba(255, 0, 64, 0.2);
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .error-alert {
+            background: rgba(255, 7, 58, 0.1);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            animation: glitch 0.5s ease-in-out;
+        }
+        
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-rain" id="matrixRain"></div>
+    
+    <div class="login-container">
+        <div class="cyber-border">
+            <div class="login-card">
+                <div class="logo-container">
+                    <h1>🛡️ PHANTOMEYE</h1>
+                    <p>AI-POWERED HONEYPOT DEFENSE SYSTEM</p>
+                    <div class="system-status">
+                        <div class="status-item">
+                            <div class="status-dot"></div>
+                            <span>SYSTEM ONLINE</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-dot"></div>
+                            <span>SECURE</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-dot"></div>
+                            <span>MONITORING</span>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if error %}
+                    <div class="error-alert" role="alert">
+                        <strong>ACCESS DENIED:</strong> {{ error }}
+                    </div>
+                {% endif %}
+                
+                <form method="POST">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                        <label for="username">USERNAME</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                        <label for="password">PASSWORD</label>
+                    </div>
+                    <button type="submit" class="login-btn">
+                        INITIALIZE ACCESS
+                    </button>
+                </form>
+                
+                <div class="security-notice">
+                    <strong>SECURITY NOTICE:</strong><br>
+                    Default Credentials: admin / phantom123<br>
+                    All access attempts are monitored and logged.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Matrix rain effect
+        function createMatrixRain() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const container = document.getElementById('matrixRain');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            container.appendChild(canvas);
+            
+            const chars = '01';
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#00ff41';
+                ctx.font = fontSize + 'px Courier New';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 100);
+        }
+        
+        // Initialize matrix rain
+        createMatrixRain();
+        
+        // Form enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const button = document.querySelector('.login-btn');
+            
+            form.addEventListener('submit', function() {
+                button.innerHTML = '<span class="spinner-border spinner-border-sm"></span> AUTHENTICATING...';
+                button.disabled = true;
+            });
+            
+            // Add typing sound effect simulation
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('keydown', function() {
+                    // Visual feedback for typing
+                    this.style.boxShadow = '0 0 25px rgba(0, 255, 65, 0.4)';
+                    setTimeout(() => {
+                        this.style.boxShadow = '0 0 15px rgba(0, 255, 65, 0.3)';
+                    }, 100);
+                });
+            });
+        });
+        
+        // Resize canvas on window resize
+        window.addEventListener('resize', function() {
+            document.getElementById('matrixRain').innerHTML = '';
+            createMatrixRain();
+        });
+    </script>
+</body>
+</html>
+
