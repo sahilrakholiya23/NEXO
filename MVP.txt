@@ -1,0 +1,183 @@
+Perfect timing 🔥 You already have a killer hackathon project idea (PhantomEye).
+Now let’s plan out step by step how to make your full project so you can build and present it like a pro in front of judges.
+
+🛡️ PhantomEye: AI-Powered Honeypot Cyber Defense System
+
+Goal: Detect attacks (SQLi, XSS, Brute Force, Recon scans) in real time → divert attackers to fake honeypot site → alert security team instantly.
+
+1️⃣ Core Features (MVP for Hackathon)
+
+You don’t need to build 100% production-level. Build the core demo features:
+
+✅ Customer Login (legit users only)
+
+✅ Input Website URL → Tool clones it (slightly broken for honeypot)
+
+✅ Attack Detection Engine
+
+Detect SQLi payloads (' OR '1'='1, UNION SELECT, etc.)
+
+Detect XSS payloads (<script>, onerror=, etc.)
+
+Detect brute-force login attempts (multiple failed tries).
+
+Detect scanning tools (Nmap, DirBuster patterns).
+
+✅ Instant Honeypot Swap (redirect attacker to fake site).
+
+✅ Alert System (console + Telegram).
+
+✅ Dashboard (show captured attacks, attacker IP, payloads).
+
+2️⃣ Tech Stack
+
+Backend → Python + Flask (simple + fast to demo).
+
+Frontend Dashboard → HTML + Bootstrap (inside Flask).
+
+Cloning → requests, BeautifulSoup, or wget.
+
+Detection → Regex + simple AI model (for demo, regex enough).
+
+Honeypot clone → Flask route serving the scraped (modified) website.
+
+Alerting → Telegram Bot API.
+
+DB → SQLite (store attacks + honeypot logs).
+
+3️⃣ Project Folder Structure
+PhantomEye/
+│── app.py              # main Flask app
+│── templates/
+│    ├── login.html
+│    ├── dashboard.html
+│    ├── input_url.html
+│    └── honeypot.html  # fake cloned site
+│── static/             # CSS, JS, images
+│── clone_storage/      # stores cloned sites
+│── database.db         # SQLite logs
+
+4️⃣ Flow of the System
+🔑 Step 1: Customer Login
+
+Open PhantomEye → login with credentials (only admin has access).
+
+🌐 Step 2: Add Website
+
+Enter website URL → PhantomEye fetches + clones → stores in clone_storage/.
+
+🛡️ Step 3: Attack Detection
+
+Incoming requests are passed through detection engine.
+
+If payload = malicious → log attack + trigger honeypot swap.
+
+🎭 Step 4: Honeypot Swap
+
+Attacker is redirected to clone site (fake login, fake DB).
+
+Logs everything attacker tries.
+
+🚨 Step 5: Alert + Dashboard
+
+Show Attacker IP, payload, time, location on dashboard.
+
+Send Telegram Alert instantly.
+
+5️⃣ How to Demo to Judges
+
+Run python app.py → open http://localhost:5000.
+
+Login with PhantomEye credentials.
+
+Enter https://example.com (tool clones it).
+
+Open browser as “attacker” → send SQLi like:
+
+http://localhost:5000/?id=1' OR '1'='1
+
+
+👉 PhantomEye detects SQLi → attacker redirected to honeypot clone.
+
+Show judges the dashboard where logs appear.
+
+Show Telegram alert coming instantly.
+
+6️⃣ Advanced Features (if time left)
+
+🔥 AI detection → small ML model (sklearn) trained on malicious payloads vs normal requests.
+
+🔥 GeoIP lookup → attacker country + city.
+
+🔥 Session replays → record attacker clicks inside honeypot.
+
+🔥 Fake DB queries → attackers think they’re dumping DB, but it’s fake.
+
+7️⃣ How You Win Judges’ Hearts
+
+🎯 Problem Statement: Cyberattacks cost $$$, existing tools detect late, PhantomEye detects & diverts instantly.
+
+🎯 Demo: Show live SQL Injection attack → instant honeypot swap. Judges love live hacking demo.
+
+🎯 USP: Combines Detection + Deception + Alerting in one lightweight tool.
+
+🎯 Future Scope: Enterprise use, integration with SIEM, SOC teams.
+
+
+bash
+PhantomEye/
+│── app.py                  # Main application (Flask)
+│── config.py               # Configuration
+│── detection_engine.py     # Attack detection
+│── honeypot_cloner.py      # Website cloning
+│── requirements.txt        # Dependencies
+│── templates/
+│   ├── login.html          # Admin login
+│   ├── dashboard.html      # Attack monitoring
+│   ├── input_url.html      # URL submission
+│   └── honeypot.html       # Fake cloned site
+│── static/
+│   └── style.css           # Basic styling
+│── database.db             # SQLite database (auto-created)
+
+🛠 1. Setup (5 minutes)
+Run these commands:
+bash
+
+Install dependencies
+pip install -r requirements.txt
+
+Launch PhantomEye
+python app.py
+
+Access at: http://localhost:5000
+
+🔑 2. Core Features
+✅ Admin Login
+Credentials: admin / phantom123
+Code (app.py): python users = {"admin": {"password": "phantom123"}} # Replace with hashed passwords in production
+🌐 Website Cloning
+Submit any URL (e.g., http://example.com)
+Code (honeypot_cloner.py): python def clone_website(url): response = requests.get(url) soup = BeautifulSoup(response.text, "html.parser") with open("templates/honeypot.html", "w") as f: f.write(str(soup)) return "Cloned successfully!"
+🚨 Attack Detection
+Detects:
+SQLi (' OR '1'='1)
+XSS (<script>alert(1)</script>)
+Code (detection_engine.py): python def detect_attack(payload): patterns = [r"'.*--", r"<script>", r"OR\s+'1'='1"] return any(re.search(p, payload, re.IGNORECASE) for p in patterns)
+🎭 Honeypot Swap
+Malicious requests redirect to honeypot.html
+Code (app.py): python @app.route("/honeypot") def honeypot(): if detect_attack(request.args.get("payload", "")): log_attack(request.remote_addr, request.args.get("payload", "")) return render_template("honeypot.html") return "Legitimate request."
+📊 Dashboard
+View attacker IPs, payloads, and timestamps: html <!-- templates/dashboard.html --> <table> <tr><th>IP</th><th>Payload</th><th>Time</th></tr> {% for attack in attacks %} <tr><td>{{ attack.ip }}</td><td>{{ attack.payload }}</td><td>{{ attack.timestamp }}</td></tr> {% endfor %} </table>
+📜 Demo Script
+Login: Show the admin panel.
+
+Clone: Enter http://example.com.
+
+Attack: Simulate:
+
+bash
+curl "http://localhost:5000/honeypot?payload=<script>alert('XSS')</script>"
+
+Showcase: Highlight the dashboard logs and honeypot page.
+
